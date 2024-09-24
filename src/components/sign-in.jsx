@@ -1,5 +1,7 @@
 
-import { signIn } from "./../auth"
+import { signIn } from "../auth"
+import { SignInButton } from "./auth/signin-button"
+import { SignOutButton } from "./auth/signout-button"
  
 export default function SignIn() {
   return (
@@ -28,6 +30,8 @@ export default function SignIn() {
       </label>
       <button>Sign In</button>
     </form>
+    <SignInButton/>
+    <SignOutButton/>
     </>
   )
 } 
