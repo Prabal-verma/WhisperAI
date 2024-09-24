@@ -1,5 +1,5 @@
-import SignIn from "./../components/sign-in";
-import Image from "next/image";
+// import SignIn from "./../components/sign-in";
+// import Image from "next/image";
 import Navbar from "../components/Navbar"
 
 
@@ -7,8 +7,8 @@ export default function Home() {
   return (
     <>
     <div>
-      hello
-      <SignIn/>
+      {/* hello
+      <SignIn/> */}
       <div className="min-h-screen bg-blue-50 flex flex-col justify-between">
       {/* Navbar */}
       <Navbar/>
@@ -84,7 +84,7 @@ export default function Home() {
             <div className="text-center">
               <div className="text-6xl font-bold text-blue-600 mb-4">2</div>
               <h3 className="text-2xl font-semibold mb-2">Start Sharing</h3>
-              <p className="text-gray-600">Share your feelings and receive advice that's designed just for you.</p>
+              <p className="text-gray-600">Share your feelings and receive advice that&apos;s designed just for you.</p>
             </div>
             {/* Step 3 */}
             <div className="text-center">
@@ -104,7 +104,7 @@ export default function Home() {
             {/* Testimonial 1 */}
             <div className="bg-white p-8 rounded-lg shadow-md">
               <p className="text-gray-600 mb-4">
-                "The assistant has been a life-changer for me. It's always there to listen and guide, even at 3 AM."
+                "The assistant has been a life-changer for me. It&apos;s always there to listen and guide, even at 3 AM."
               </p>
               <h3 className="text-xl font-semibold">- Sarah K.</h3>
             </div>
