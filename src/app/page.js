@@ -104,21 +104,21 @@ export default function Home() {
             {/* Testimonial 1 */}
             <div className="bg-white p-8 rounded-lg shadow-md">
               <p className="text-gray-600 mb-4">
-                "The assistant has been a life-changer for me. It&apos;s always there to listen and guide, even at 3 AM."
+              &quot;The assistant has been a life-changer for me. It&apos;s always there to listen and guide, even at 3 AM.&quot;
               </p>
               <h3 className="text-xl font-semibold">- Sarah K.</h3>
             </div>
             {/* Testimonial 2 */}
             <div className="bg-white p-8 rounded-lg shadow-md">
               <p className="text-gray-600 mb-4">
-                "It feels like talking to a trusted friend who understands me, without any judgment."
+              &quot;It feels like talking to a trusted friend who understands me, without any judgment.&quot;
               </p>
               <h3 className="text-xl font-semibold">- Michael R.</h3>
             </div>
             {/* Testimonial 3 */}
             <div className="bg-white p-8 rounded-lg shadow-md">
               <p className="text-gray-600 mb-4">
-                "I love how easy it is to use and the instant support I get whenever I need it."
+              &quot;I love how easy it is to use and the instant support I get whenever I need it.&quot;
               </p>
               <h3 className="text-xl font-semibold">- Emily J.</h3>
             </div>
