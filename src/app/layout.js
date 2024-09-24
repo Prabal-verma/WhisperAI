@@ -1,5 +1,6 @@
 import localFont from "next/font/local";
 import "./globals.css";
+import Chatbot from "../components/Chatbot"
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -24,7 +25,11 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
+        <Chatbot/>
+        
       </body>
+      
     </html>
+    
   );
 }
