@@ -1,45 +1,69 @@
-
-import NextAuth from "next-auth"
-import Google from "next-auth/providers/google"
-import Credentials from "next-auth/providers/credentials"
-import { MongoDBAdapter } from "@auth/mongodb-adapter"
-import client from "./lib/db"
+import NextAuth from "next-auth";
+import Google from "next-auth/providers/google";
+import Credentials from "next-auth/providers/credentials";
+import { MongoDBAdapter } from "@auth/mongodb-adapter";
+import client from "./lib/db";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: MongoDBAdapter(client),
 
-  providers: [Google,
+  providers: [
+    Google({
+      // Ensure you have the correct client ID and secret from Google Cloud
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      // Specify the redirect URL
+      redirectUri: `${process.env.NEXTAUTH_URL}/api/auth/callback/google`,
+    }),
     Credentials({
-      // You can specify which fields should be submitted, by adding keys to the `credentials` object.
-      // e.g. domain, username, password, 2FA token, etc.
       credentials: {
-        email: {},
-        password: {},
+        email: { label: "Email", type: "email", placeholder: "you@example.com" },
+        password: { label: "Password", type: "password", placeholder: "••••••••" },
       },
       authorize: async (credentials) => {
-        let user = null
- 
-        // logic to salt and hash password
-        const pwHash = saltAndHashPassword(credentials.password)
- 
-        // logic to verify if the user exists
-        user = await getUserFromDb(credentials.email, pwHash)
- 
+        // Here you can implement the logic to verify credentials
+        const user = await getUserFromDb(credentials.email, credentials.password); // Ensure this function is correctly implemented
+
         if (!user) {
-          // No user found, so this is their first attempt to login
-          // meaning this is also the place you could do registration
-          throw new Error("User not found.")
+          throw new Error("Invalid credentials");
         }
- 
-        // return user object with their profile data
-        return user
+
+        // Return user object to NextAuth
+        return user;
       },
     }),
   ],
+
   callbacks: {
-    authorized: async ({ auth }) => {
-      // Logged in users are authenticated, otherwise redirect to login page
-      return !!auth
+    async signIn({ user, account, profile }) {
+      // Log the user in or handle errors
+      if (account.provider === "google") {
+        // Handle Google sign-in
+        return true;
+      }
+      return true; // Allow sign-in for other providers
+    },
+    async session({ session, user }) {
+      // Add user id to session
+      if (user) {
+        session.user.id = user.id;
+      }
+      return session;
+    },
+    async jwt({ token, user }) {
+      // Add user id to JWT token
+      if (user) {
+        token.id = user.id;
+      }
+      return token;
+    },
+    async redirect({ url, baseUrl }) {
+      // Redirect to the desired URL after sign in
+      return url.startsWith(baseUrl) ? url : baseUrl;
     },
   },
-})
+  pages: {
+    signIn: '/sign-in', // Custom sign-in page
+    error: '/auth/error', // Error handling page
+  },
+});
