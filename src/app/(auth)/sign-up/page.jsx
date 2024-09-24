@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { signIn } from "next-auth/react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -7,38 +7,53 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setError] = useState(null); // State for error messages
+  const [error, setError] = useState(null);
   const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Basic validation for passwords
     if (password !== confirmPassword) {
       setError("Passwords do not match");
       return;
     }
 
-    // Here you would typically call your signup API or logic to register the user
-    // For example:
-    // const result = await signUp({ email, password });
+    // Use NextAuth to sign up with email and password
+    const response = await fetch("/api/auth/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    });
 
-    // Simulating successful sign-up and redirecting to the sign-in page
-    // Remove this part once your sign-up logic is implemented
-    setError(null); // Clear any previous error
-    router.push("/sign-in"); // Redirect to sign-in page after successful sign-up
+    const data = await response.json();
+
+    if (response.ok) {
+      router.push("/sign-in"); // Redirect to sign-in page
+    } else {
+      setError(data.error || "An error occurred during sign-up.");
+    }
+  };
+
+  const handleGoogleSignUp = () => {
+    signIn("google");
   };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-900">
       <div className="w-full max-w-md p-8 space-y-6 bg-gray-800 rounded-lg shadow-lg">
         <h1 className="text-3xl font-bold text-center text-white">Sign Up</h1>
+        <button
+          onClick={handleGoogleSignUp}
+          className="w-full px-4 py-2 font-semibold text-white bg-red-600 rounded-md hover:bg-red-700 focus:outline-none"
+        >
+          Sign Up with Google
+        </button>
         <form onSubmit={handleSubmit} className="space-y-4">
-          {error && <p className="text-red-500 text-center">{error}</p>} {/* Error Message */}
+          {error && <p className="text-red-500 text-center">{error}</p>}
           <div>
-            <label className="block mb-2 text-sm font-medium text-gray-300">
-              Email:
-            </label>
+            <label className="block mb-2 text-sm font-medium text-gray-300">Email:</label>
             <input
               type="email"
               value={email}
@@ -49,9 +64,7 @@ const SignUp = () => {
             />
           </div>
           <div>
-            <label className="block mb-2 text-sm font-medium text-gray-300">
-              Password:
-            </label>
+            <label className="block mb-2 text-sm font-medium text-gray-300">Password:</label>
             <input
               type="password"
               value={password}
@@ -62,9 +75,7 @@ const SignUp = () => {
             />
           </div>
           <div>
-            <label className="block mb-2 text-sm font-medium text-gray-300">
-              Confirm Password:
-            </label>
+            <label className="block mb-2 text-sm font-medium text-gray-300">Confirm Password:</label>
             <input
               type="password"
               value={confirmPassword}
