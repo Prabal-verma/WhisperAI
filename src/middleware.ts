@@ -1,5 +1,4 @@
-// src/middleware.ts
-import { NextResponse } from "next/server"
+import { NextResponse } from "next/server";
 
 export async function middleware(req) {
   const res = await fetch(`${req.nextUrl.origin}/api/auth/session`, {
@@ -7,18 +6,26 @@ export async function middleware(req) {
     headers: {
       cookie: req.headers.get("cookie") || "",
     },
-  })
+  });
 
-  const session = await res.json()
+  const session = await res.json();
+  const isAuth = session?.user; // Check if the user is authenticated
 
-  if (!session?.user && req.nextUrl.pathname !== "/login") {
-    const newUrl = new URL("/login", req.nextUrl.origin)
-    return NextResponse.redirect(newUrl)
+  // Redirect unauthenticated users to sign-in
+  if (!isAuth && req.nextUrl.pathname !== "/sign-in" && req.nextUrl.pathname !== "/sign-up") {
+    const newUrl = new URL("/sign-in", req.nextUrl.origin);
+    return NextResponse.redirect(newUrl);
   }
 
-  return NextResponse.next()
+  // Redirect authenticated users to home
+  if (isAuth && (req.nextUrl.pathname === "/sign-in" || req.nextUrl.pathname === "/sign-up")) {
+    const newUrl = new URL("/", req.nextUrl.origin); // Redirect to home page
+    return NextResponse.redirect(newUrl);
+  }
+
+  return NextResponse.next();
 }
 
 export const config = {
   matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
-}
+};
