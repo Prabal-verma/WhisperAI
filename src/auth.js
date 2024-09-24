@@ -2,8 +2,12 @@
 import NextAuth from "next-auth"
 import Google from "next-auth/providers/google"
 import Credentials from "next-auth/providers/credentials"
+import { MongoDBAdapter } from "@auth/mongodb-adapter"
+import client from "./lib/db"
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  adapter: MongoDBAdapter(client),
+
   providers: [Google,
     Credentials({
       // You can specify which fields should be submitted, by adding keys to the `credentials` object.
