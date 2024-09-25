@@ -72,107 +72,111 @@ const LoginForm = () => {
   };
 
   return (
-<CardWrapper
-  headerLabel="Welcome back"
-  backButtonLabel="Don't have an account?"
-  backButtonHref="/auth/register"
-  showSocial
-  className="bg-gray-50 border border-gray-200 shadow-lg rounded-lg p-6" // Light theme styling for CardWrapper
->
-  <Form {...form}>
-    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-      <div className="space-y-4">
-        {showTwoFactor && (
-          <>
-            {/* 2FA */}
-            <FormField
-              control={form.control}
-              name="code"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-gray-800">Two Factor Code</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      disabled={isPending}
-                      placeholder="123456"
-                      className="border border-gray-300 rounded-md bg-white text-gray-800 focus:outline-none focus:ring focus:ring-blue-300" // Light theme styles
+    <section className="bg-white relative ">
+    <div className=" mt-[10vh] h-screen bg-white w-full absolute right-[180px] ">
+        <CardWrapper
+          headerLabel="Welcome back"
+          backButtonLabel="Don't have an account?"
+          backButtonHref="/auth/register"
+          showSocial
+          // className="bg-gray-50 border border-gray-200 shadow-lg rounded-lg p-6" // Light theme styling for CardWrapper
+        >
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+              <div className="space-y-4">
+                {showTwoFactor && (
+                  <>
+                    {/* 2FA */}
+                    <FormField
+                      control={form.control}
+                      name="code"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-gray-800">Two Factor Code</FormLabel>
+                          <FormControl>
+                            <Input
+                              {...field}
+                              disabled={isPending}
+                              placeholder="123456"
+                              className="border border-gray-300 rounded-md bg-white text-gray-800 focus:outline-none focus:ring focus:ring-blue-300" // Light theme styles
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
                     />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </>
-        )}
-        {!showTwoFactor && (
-          <>
-            {/* Email */}
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-gray-800">Email</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      disabled={isPending}
-                      placeholder="john.doe@example.com"
-                      type="email"
-                      className="border border-gray-300 rounded-md bg-white text-gray-800 focus:outline-none focus:ring focus:ring-blue-300" // Light theme styles
+                  </>
+                )}
+                {!showTwoFactor && (
+                  <>
+                    {/* Email */}
+                    <FormField
+                      control={form.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-gray-800">Email</FormLabel>
+                          <FormControl>
+                            <Input
+                              {...field}
+                              disabled={isPending}
+                              placeholder="john.doe@example.com"
+                              type="email"
+                              className="border border-gray-300 rounded-md bg-white text-gray-800 focus:outline-none focus:ring focus:ring-blue-300" // Light theme styles
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
                     />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
 
-            {/* Password */}
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-gray-800">Password</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      disabled={isPending}
-                      placeholder="******"
-                      type="password"
-                      className="border border-gray-300 rounded-md bg-white text-gray-800 focus:outline-none focus:ring focus:ring-blue-300" // Light theme styles
+                    {/* Password */}
+                    <FormField
+                      control={form.control}
+                      name="password"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-gray-800">Password</FormLabel>
+                          <FormControl>
+                            <Input
+                              {...field}
+                              disabled={isPending}
+                              placeholder="******"
+                              type="password"
+                              className="border border-gray-300 rounded-md bg-white text-gray-800 focus:outline-none focus:ring focus:ring-blue-300" // Light theme styles
+                            />
+                          </FormControl>
+                          <Button
+                            size="sm"
+                            variant="link"
+                            asChild
+                            className="px-0 font-normal text-blue-600 hover:text-blue-700" // Light theme link style
+                          >
+                            <Link href="/auth/reset">Forgot password?</Link>
+                          </Button>
+                          <FormMessage />
+                        </FormItem>
+                      )}
                     />
-                  </FormControl>
-                  <Button
-                    size="sm"
-                    variant="link"
-                    asChild
-                    className="px-0 font-normal text-blue-600 hover:text-blue-700" // Light theme link style
-                  >
-                    <Link href="/auth/reset">Forgot password?</Link>
-                  </Button>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </>
-        )}
-      </div>
-      <FormError message={error || urlError} />
-      <FormSucess message={success} />
-      <Button
-        disabled={isPending}
-        type="submit"
-        className="w-full bg-blue-600 text-white hover:bg-blue-700 rounded-md"
-      >
-        {showTwoFactor ? "Confirm" : "Login"}
-      </Button>
-    </form>
-  </Form>
-</CardWrapper>
+                  </>
+                )}
+              </div>
+              <FormError message={error || urlError} />
+              <FormSucess message={success} />
+              <Button
+                disabled={isPending}
+                type="submit"
+                className="w-full bg-blue-600 text-white hover:bg-blue-700 rounded-md"
+              >
+                {showTwoFactor ? "Confirm" : "Login"}
+              </Button>
+            </form>
+          </Form>
+        </CardWrapper>
+</div>
+</section>
 
   );
-};
+}; 
 
 export default LoginForm;
