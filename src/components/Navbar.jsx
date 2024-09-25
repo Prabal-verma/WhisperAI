@@ -17,8 +17,8 @@ const Header = async () => {
           {/* Show Login and Sign Up if user is not logged in */}
           {!session || !session.user ? (
             <>
-              <a href="/sign-in" className="text-blue-600 font-semibold hover:text-blue-500 transition duration-200">Login</a>
-              <a href="/sign-up" className="text-blue-600 font-semibold hover:text-blue-500 transition duration-200">Sign Up</a>
+              <a href="/auth/login" className="text-blue-600 font-semibold hover:text-blue-500 transition duration-200">Login</a>
+              <a href="/auth/register" className="text-blue-600 font-semibold hover:text-blue-500 transition duration-200">Sign Up</a>
             </>
           ) : (
             <>
