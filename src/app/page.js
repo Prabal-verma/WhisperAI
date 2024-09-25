@@ -10,8 +10,7 @@ export default function Home() {
       {/* hello
       <SignIn/> */}
       <div className="min-h-screen bg-blue-50 flex flex-col justify-between">
-      {/* Navbar */}
-      <Navbar/>
+
 
       {/* Hero Section */}
       <section className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-24">
