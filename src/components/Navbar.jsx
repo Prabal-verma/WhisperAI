@@ -1,6 +1,15 @@
 import React from 'react';
 import Image from 'next/image';
 import { auth, signOut } from "../auth"; // Adjust the import path based on your project structure
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+
 
 const Header = async () => {
   const session = await auth(); // Get session data
@@ -24,7 +33,21 @@ const Header = async () => {
             <>
               {/* Show User Avatar if logged in */}
               <div className="relative w-10 h-10 rounded-full overflow-hidden border border-gray-300">
-                <Image src={session.user.image} alt="User Avatar" height={35} width={35} className="rounded-full" />
+              
+
+                                <Dialog>
+                  <DialogTrigger>  <Image src={session.user.image} alt="User Avatar" height={35} width={35} className="rounded-full" />
+                  </DialogTrigger>
+                  <DialogContent>
+                    <DialogHeader>
+                      <DialogTitle>Are you absolutely sure?</DialogTitle>
+                      <DialogDescription>
+                        This action cannot be undone. This will permanently delete your account
+                        and remove your data from our servers.
+                      </DialogDescription>
+                    </DialogHeader>
+                  </DialogContent>
+                </Dialog>
               </div>
               {/* Logout Button */}
               <form action={async () => {
