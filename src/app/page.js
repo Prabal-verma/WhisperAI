@@ -128,7 +128,7 @@ export default function Home() {
       {/* Footer */}
       <footer className="bg-white shadow-md py-8">
         <div className="container mx-auto text-center text-gray-600">
-          <p>© 2024 Mental Health Assistant | <a href="/privacy" className="text-blue-600 hover:underline">Privacy Policy</a></p>
+          <p>© 2024 Mental Health Assistant | <a href="/privacy-policy" className="text-blue-600 hover:underline">Privacy Policy</a></p>
         </div>
       </footer>
     </div>
