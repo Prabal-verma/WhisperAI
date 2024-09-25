@@ -5,7 +5,7 @@ import { auth} from "../../../auth"
 
 
 
-export default async function Dashboard({ userData }) {
+export default async function Dashboard() {
   const [searchTerm, setSearchTerm] = useState('');
   const session = await auth();
 
