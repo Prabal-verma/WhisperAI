@@ -16,7 +16,7 @@ const PrivacyPolicy = () => {
         <section className="mb-8">
           <h2 className="text-2xl font-semibold mb-4">1. Introduction</h2>
           <p className="text-gray-700">
-            Welcome to [Your Company Name]'s Mental Health AI Assistant. We are committed to protecting your privacy and ensuring that your personal information is handled in a safe and responsible manner.
+            Welcome to [Your Company Name]&apos;s Mental Health AI Assistant. We are committed to protecting your privacy and ensuring that your personal information is handled in a safe and responsible manner.
           </p>
         </section>
 
