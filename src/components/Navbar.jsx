@@ -21,6 +21,7 @@ const Header = async () => {
         {/* Clickable Logo */}
         <a href="/" className="text-2xl font-extrabold text-blue-600 tracking-tight">
           Whisper
+          
         </a>
         
         <div className="flex items-center space-x-6">
