@@ -1,3 +1,4 @@
+
 "use client"
 import { signIn } from "next-auth/react";
 import { useState } from "react";
@@ -65,7 +66,7 @@ const SignIn = () => {
           </button>
         </form>
         <p className="text-sm text-center text-gray-400">
-          Don&apos;t have an account?{" "}
+          Don't have an account?{" "}
           <a href="/sign-up" className="text-blue-400 hover:underline">
             Sign Up
           </a>
@@ -76,6 +77,12 @@ const SignIn = () => {
             className="w-full px-4 py-2 font-semibold text-white bg-red-600 rounded-md hover:bg-red-700 focus:outline-none"
           >
             Sign in with Google
+          </button>
+          <button
+            onClick={() => signIn("github")}
+            className="w-full px-4 py-2 font-semibold text-white bg-red-600 rounded-md hover:bg-red-700 focus:outline-none"
+          >
+            Sign in with Github
           </button>
         </div>
       </div>

@@ -3,6 +3,7 @@ import Google from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
 import client from "./lib/db";
+import GitHub from "next-auth/providers/github"
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: MongoDBAdapter(client),
@@ -14,6 +15,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       // Specify the redirect URL
       redirectUri: `${process.env.NEXTAUTH_URL}/api/auth/callback/google`,
+    }),
+    GitHub({
+      clientId: process.env.GITHUB_CLIENT_ID, // GitHub Client ID
+      clientSecret: process.env.GITHUB_CLIENT_SECRET, // GitHub Client Secret
+      redirectUri: `${process.env.NEXTAUTH_URL}/api/auth/callback/github`, // Optional, can be handled automatically
     }),
     Credentials({
       credentials: {
