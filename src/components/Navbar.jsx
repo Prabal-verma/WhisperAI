@@ -9,6 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
+import ProfileBox from  "../components/ProfileBox"
 
 
 const Header = async () => {
@@ -39,13 +40,7 @@ const Header = async () => {
                   <DialogTrigger>  <Image src={session.user.image} alt="User Avatar" height={35} width={35} className="rounded-full" />
                   </DialogTrigger>
                   <DialogContent>
-                    <DialogHeader>
-                      <DialogTitle>Are you absolutely sure?</DialogTitle>
-                      <DialogDescription>
-                        This action cannot be undone. This will permanently delete your account
-                        and remove your data from our servers.
-                      </DialogDescription>
-                    </DialogHeader>
+                    <ProfileBox/>
                   </DialogContent>
                 </Dialog>
               </div>
