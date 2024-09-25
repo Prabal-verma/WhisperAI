@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import { auth,signOut } from "../auth"; // Adjust the import path based on your project structure
+import { auth, signOut } from "../auth"; // Adjust the import path based on your project structure
 
 const Header = async () => {
   const session = await auth(); // Get session data
@@ -8,7 +8,11 @@ const Header = async () => {
   return (
     <nav className="bg-white shadow-md fixed w-full top-0 z-50">
       <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-        <h1 className="text-2xl font-extrabold text-blue-600 tracking-tight">Whisper</h1>
+        {/* Clickable Logo */}
+        <a href="/" className="text-2xl font-extrabold text-blue-600 tracking-tight">
+          Whisper
+        </a>
+        
         <div className="flex items-center space-x-6">
           {/* Show Login and Sign Up if user is not logged in */}
           {!session || !session.user ? (
