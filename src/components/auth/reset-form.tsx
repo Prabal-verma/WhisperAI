@@ -22,6 +22,7 @@ import { FormError } from "@/components/form-error";
 import { FormSucess } from "@/components/form-sucess";
 
 import { reset } from "@/actions/reset";
+import { Section } from "lucide-react";
 
 const ResetForm = () => {
   const [error, setError] = useState<string | undefined>("");
@@ -49,6 +50,9 @@ const ResetForm = () => {
   };
 
   return (
+    <>
+    <section className="bg-white relative ">
+    <div className=" mt-[14vh] h-screen bg-white w-full absolute right-[200px] ">
     <CardWrapper
       headerLabel="Forgot your password?"
       backButtonLabel="Back to login"
@@ -85,6 +89,9 @@ const ResetForm = () => {
         </form>
       </Form>
     </CardWrapper>
+    </div>
+    </section>
+    </>
   );
 };
 

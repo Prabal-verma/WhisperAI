@@ -19,7 +19,7 @@ export default function Home() {
           <p className="text-xl mb-8">
             Providing support, guidance, and understanding whenever you need it.
           </p>
-          <a href="/chat" className="inline-block bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold shadow-md hover:bg-gray-100 transition">
+          <a href="/dashboard" className="inline-block bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold shadow-md hover:bg-gray-100 transition">
             Start Chatting
           </a>
         </div>

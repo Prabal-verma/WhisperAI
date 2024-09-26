@@ -51,7 +51,7 @@ const RegisterForm = () => {
 
   return (
     <section className="bg-white relative ">
-    <div className=" mt-[10vh] h-screen bg-white w-full absolute right-[180px] ">
+    <div className=" mt-[14vh] h-screen bg-white w-full absolute right-[200px] ">
     <CardWrapper
       headerLabel="Create an account"
       backButtonLabel="Already have an account?"

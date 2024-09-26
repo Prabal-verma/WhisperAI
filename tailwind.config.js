@@ -8,6 +8,10 @@ module.exports = {
   ],
   theme: {
     extend: {
+      gridTemplateColumns: {
+        // Creates 52 columns (one per week)
+        '52': 'repeat(52, minmax(0, 1fr))',
+      },
       colors: {
         background: "#FFFFFF", // White background
         foreground: "#000000", // Black text

@@ -1,61 +1,67 @@
-import React from 'react';
-import { FaHome, FaUser, FaChartBar, FaSignOutAlt, FaCog, FaSmile, FaBullseye } from 'react-icons/fa';
+import React, { useState } from 'react';
+import { FaBars, FaHome, FaUser, FaChartBar, FaSignOutAlt, FaCog, FaSmile, FaBullseye, FaComments } from 'react-icons/fa';
+import { LogoutButton } from '../auth/logout-button';
 
 const Sidebar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
-    <div className="h-screen w-64 bg-blue-600 text-white fixed">
-      <div className="flex flex-col justify-between h-full py-6 px-4">
-        <div>
-          <h2 className="text-3xl font-bold text-center mb-10 transition-transform transform hover:scale-105 hover:text-gray-300">
-            Dashboard
-          </h2>
-          <ul className="space-y-8">
-            <li>
-              <a href="/dashboard" className="flex items-center space-x-2 hover:text-blue-200 transition-transform transform hover:scale-105">
-                <FaHome className="transition-transform transform hover:rotate-12"/>
-                <span>Home</span>
-              </a>
-            </li>
-            <li>
-              <a href="/profile" className="flex items-center space-x-2 hover:text-blue-200 transition-transform transform hover:scale-105">
-                <FaUser className="transition-transform transform hover:rotate-12"/>
-                <span>Profile</span>
-              </a>
-            </li>
-            <li>
-              <a href="/analytics" className="flex items-center space-x-2 hover:text-blue-200 transition-transform transform hover:scale-105">
-                <FaChartBar className="transition-transform transform hover:rotate-12"/>
-                <span>Analytics</span>
-              </a>
-            </li>
-            <li>
-              <a href="/mood-tracking" className="flex items-center space-x-2 hover:text-blue-200 transition-transform transform hover:scale-105">
-                <FaSmile className="transition-transform transform hover:rotate-12"/>
-                <span>Mood Tracking</span>
-              </a>
-            </li>
-            <li>
-              <a href="/goals" className="flex items-center space-x-2 hover:text-blue-200 transition-transform transform hover:scale-105">
-                <FaBullseye className="transition-transform transform hover:rotate-12"/>
-                <span>Goals</span>
-              </a>
-            </li>
-            <li>
-              <a href="/settings" className="flex items-center space-x-2 hover:text-blue-200 transition-transform transform hover:scale-105">
-                <FaCog className="transition-transform transform hover:rotate-12"/>
-                <span>Settings</span>
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div>
-          <a href="/logout" className="flex items-center space-x-2 hover:text-blue-200 transition-transform transform hover:scale-105">
-            <FaSignOutAlt className="transition-transform transform hover:rotate-12"/>
-            <span>Logout</span>
-          </a>
+    <>
+      {/* Hamburger Button for Mobile */}
+      <button 
+        className="md:hidden bg-blue-600 text-white p-3 fixed top-4 left-4 z-50 focus:outline-none rounded-full shadow-lg hover:shadow-xl transition-shadow"
+        onClick={toggleSidebar}
+      >
+        <FaBars />
+      </button>
+
+      {/* Sidebar */}
+      <div 
+        className={`fixed h-screen w-64 bg-blue-600 text-white top-0 left-0 transform ${isOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out md:translate-x-0 z-40`}
+      >
+        <div className="flex flex-col justify-between h-full py-6 px-4">
+          <div>
+            <h2 className="text-3xl font-bold text-center mb-10 transition-transform transform hover:scale-105 hover:text-gray-300">
+              Dashboard
+            </h2>
+            <ul className="space-y-4">
+              {[
+                { name: "Home", icon: <FaHome />, link: "/dashboard" },
+                { name: "Profile", icon: <FaUser />, link: "/profile" },
+                { name: "Start Chat", icon: <FaComments />, link: "/Chat" },
+                { name: "Analytics", icon: <FaChartBar />, link: "/analytics" },
+                { name: "Mood Tracking", icon: <FaSmile />, link: "/mood-tracking" },
+                { name: "Goals", icon: <FaBullseye />, link: "/goals" },
+                { name: "Settings", icon: <FaCog />, link: "/settings" },
+                
+              ].map((item, index) => (
+                <li key={index} className="hover:bg-gray-100 hover:text-gray-600 rounded-lg transition-colors duration-200">
+                  <a href={item.link} className="flex items-center space-x-2 py-3 px-4">
+                    {React.cloneElement(item.icon, { className: "transition-transform transform hover:rotate-12" })}
+                    <span>{item.name}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <div href="/logout" className="flex items-center space-x-2 py-3 px-4 hover:bg-red-200 hover:text-red-600 rounded-lg transition-colors duration-200">
+              <FaSignOutAlt className="transition-transform transform hover:rotate-12" />
+              <span className="font-bold">
+                <LogoutButton/>
+              </span>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+
+      {/* Overlay for Mobile */}
+      {isOpen && <div className="fixed inset-0 bg-black opacity-50 z-100" onClick={toggleSidebar}></div>}
+    </>
   );
 };
 

@@ -1,5 +1,13 @@
 "use client";
 
+import Image from "next/image"
+
+import { Label } from "@/components/ui/label"
+
+
+export const description =
+  "A login page with two columns. The first column has the login form with email and password. There's a Forgot your passwork link and a link to sign up if you do not have an account. The second column has a cover image."
+
 import * as z from "zod";
 import { useState, useTransition } from "react";
 import { useSearchParams } from "next/navigation";
@@ -73,7 +81,7 @@ const LoginForm = () => {
 
   return (
     <section className="bg-white relative ">
-    <div className=" mt-[10vh] h-screen bg-white w-full absolute right-[180px] ">
+    <div className=" mt-[14vh] h-screen bg-white w-full absolute right-[200px] ">
         <CardWrapper
           headerLabel="Welcome back"
           backButtonLabel="Don't have an account?"

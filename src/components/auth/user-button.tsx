@@ -17,11 +17,12 @@ export const UserButton = () => {
   const user = useCurrentUser();
 
   return (
+    <div className="z-100 bg-white">
     <DropdownMenu>
       <DropdownMenuTrigger>
         <Avatar>
           <AvatarImage src={user?.image || undefined} />
-          <AvatarFallback className="bg-neutral-700 text-white">
+          <AvatarFallback className="bg-gray-700 text-white">
             <FaUser />
           </AvatarFallback>
         </Avatar>
@@ -29,11 +30,12 @@ export const UserButton = () => {
       <DropdownMenuContent className="w-40" align="end">
         <LogoutButton>
           <DropdownMenuItem>
-            <ExitIcon className="h-4 w-4 mr-2" />
+            <ExitIcon className="h-4 w-4 mr-2 bg-white" />
             Logout
           </DropdownMenuItem>
         </LogoutButton>
       </DropdownMenuContent>
     </DropdownMenu>
+    </div>
   );
 };
