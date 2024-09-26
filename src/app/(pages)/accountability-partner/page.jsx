@@ -28,7 +28,7 @@ const AccountabilityPartner = () => {
         <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-8">
           <h1 className="text-3xl font-bold text-gray-800 mb-6">Accountability Partner</h1>
           <p className="text-gray-600 mb-4">
-            Stay on track with your mental health habits by inviting an accountability partner. You can view each other's progress and stay motivated together.
+            Stay on track with your mental health habits by inviting an accountability partner. You can view each other&apos;s progress and stay motivated together.
           </p>
 
           {/* Add Accountability Partner Form */}
@@ -54,7 +54,7 @@ const AccountabilityPartner = () => {
           ) : (
             <div className="bg-blue-50 p-4 rounded-lg shadow-inner mb-8 text-center">
               <p className="text-lg text-gray-700">
-                You’ve invited <strong>{partnerEmail}</strong> as your accountability partner!
+                You&apos;ve invited <strong>{partnerEmail}</strong> as your accountability partner!
               </p>
             </div>
           )}
@@ -70,7 +70,7 @@ const AccountabilityPartner = () => {
             </div>
 
             <div className="w-1/2 pl-4">
-              <h2 className="text-xl font-bold text-gray-800 mb-4">Partner's Progress</h2>
+              <h2 className="text-xl font-bold text-gray-800 mb-4">Partner&apos;s Progress</h2>
               <div className="bg-gray-200 rounded-lg h-4 w-full mb-2">
                 <div className="bg-blue-500 h-full rounded-lg" style={{ width: `${partnerProgress}%` }}></div>
               </div>
