@@ -1,75 +1,60 @@
-// pages/dashboard.js
-import Head from 'next/head';
+"use client"
+import Sidebar from '../../../components/ui/Sidebar';
+import { useState } from 'react';
+import { auth} from "../../../auth"
 
-const Dashboard = () => {
+
+
+export default async function Dashboard() {
+  const [searchTerm, setSearchTerm] = useState('');
+  const session = await auth();
+
   return (
-    <>
-      <Head>
-        <title>User Dashboard - Mental Health Assistant</title>
-      </Head>
-
-      <div className="bg-gray-100 min-h-screen py-8 px-4">
-        <div className="max-w-7xl mx-auto">
-          {/* Header */}
-          <h1 className="text-3xl font-bold text-gray-900 mb-6">Welcome Back, [User Name]!</h1>
-
-          {/* Stats Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
-            <div className="bg-white shadow rounded-lg p-6">
-              <h2 className="text-lg font-semibold text-gray-700">Mood Today</h2>
-              <p className="mt-3 text-2xl font-bold text-gray-900">😊 Happy</p>
-              <p className="mt-1 text-sm text-gray-500">You last logged your mood 3 hours ago</p>
-            </div>
-            <div className="bg-white shadow rounded-lg p-6">
-              <h2 className="text-lg font-semibold text-gray-700">Goals Progress</h2>
-              <p className="mt-3 text-2xl font-bold text-gray-900">75%</p>
-              <p className="mt-1 text-sm text-gray-500">You’ve completed 3 of your 4 goals for this week</p>
-            </div>
-            <div className="bg-white shadow rounded-lg p-6">
-              <h2 className="text-lg font-semibold text-gray-700">Journals</h2>
-              <p className="mt-3 text-2xl font-bold text-gray-900">5 Entries</p>
-              <p className="mt-1 text-sm text-gray-500">Your last entry was 2 days ago</p>
-            </div>
+    <div className="flex mt-[70px]">
+      <Sidebar />
+      <div className="ml-64 w-full h-screen p-10 bg-gray-50">
+        <header className="flex justify-between items-center mb-8">
+          <h1 className="text-3xl font-bold text-gray-800">Welcome, {session.user.name}</h1>
+          <div>
+            <input
+              type="text"
+              placeholder="Search..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
           </div>
+        </header>
 
-          {/* Quick Actions */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
-            <div className="bg-blue-500 text-white rounded-lg p-6">
-              <h2 className="text-lg font-semibold">Start a New Journal</h2>
-              <p className="mt-2 text-sm">Reflect on your day and log your thoughts.</p>
-              <button className="mt-4 py-2 px-4 bg-blue-600 hover:bg-blue-700 rounded-md">
-                Journal Now
-              </button>
-            </div>
-            <div className="bg-green-500 text-white rounded-lg p-6">
-              <h2 className="text-lg font-semibold">Guided Breathing Exercise</h2>
-              <p className="mt-2 text-sm">Take a moment to relax with a breathing exercise.</p>
-              <button className="mt-4 py-2 px-4 bg-green-600 hover:bg-green-700 rounded-md">
-                Start Breathing
-              </button>
-            </div>
-            <div className="bg-purple-500 text-white rounded-lg p-6">
-              <h2 className="text-lg font-semibold">Track Your Mood</h2>
-              <p className="mt-2 text-sm">Log how you’re feeling today to keep track of your emotions.</p>
-              <button className="mt-4 py-2 px-4 bg-purple-600 hover:bg-purple-700 rounded-md">
-                Log Mood
-              </button>
-            </div>
+        <section className="grid grid-cols-3 gap-6">
+          {/* Example Dashboard Cards */}
+          <div className="bg-white p-6 rounded-lg shadow-md">
+            <h2 className="text-xl font-semibold text-gray-700 mb-2">Total Posts</h2>
+            <p className="text-2xl font-bold text-blue-600">{12}</p>
           </div>
+          <div className="bg-white p-6 rounded-lg shadow-md">
+            <h2 className="text-xl font-semibold text-gray-700 mb-2">Followers</h2>
+            <p className="text-2xl font-bold text-blue-600">{1}</p>
+          </div>
+          <div className="bg-white p-6 rounded-lg shadow-md">
+            <h2 className="text-xl font-semibold text-gray-700 mb-2">Following</h2>
+            <p className="text-2xl font-bold text-blue-600">{4}</p>
+          </div>
+        </section>
 
-          {/* Recent Activity */}
-          <div className="bg-white shadow rounded-lg p-6 mb-10">
-            <h2 className="text-lg font-semibold text-gray-700">Recent Activity</h2>
-            <ul className="mt-4 space-y-3">
-              <li className="text-gray-600">• You completed a guided breathing exercise 1 hour ago.</li>
-              <li className="text-gray-600">• You logged a mood: 😊 Happy, 3 hours ago.</li>
-              <li className="text-gray-600">• You added a new journal entry 2 days ago.</li>
-            </ul>
-          </div>
-        </div>
+        <section className="mt-10">
+          <h2 className="text-2xl font-bold text-gray-700 mb-6">Recent Activity</h2>
+          <ul className="space-y-4">
+            {/* {userData.recentActivity.map((activity, index) => (
+              <li key={index} className="bg-white p-4 rounded-lg shadow-md">
+                {activity}
+                Playing
+              </li>
+            ))} */}
+          </ul>
+        </section>
       </div>
-    </>
+    </div>
   );
-};
+}
 
-export default Dashboard;
