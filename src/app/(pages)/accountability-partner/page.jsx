@@ -47,7 +47,7 @@ const AccountabilityPartner = () => {
                   type="submit"
                   className="ml-0 sm:ml-4 bg-blue-500 hover:bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold transition"
                 >
-                  Invite Partner 
+                  Invite Partner
                 </button>
               </div>
             </form>
