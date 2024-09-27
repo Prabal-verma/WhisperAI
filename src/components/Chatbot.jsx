@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import 'regenerator-runtime/runtime';
 import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
@@ -14,7 +14,7 @@ const ChatWidget = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [history, setHistory] = useState([]);
   const [isMounted, setIsMounted] = useState(false);
-  
+
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const widgetRef = useRef(null);
   const offset = useRef({ x: 0, y: 0 });
@@ -24,14 +24,14 @@ const ChatWidget = () => {
   const chatBodyRef = useRef(null);
   const dropdownRef = useRef(null);
 
+
   const { transcript, listening, resetTranscript, stopListening } = useSpeechRecognition();
 
   useEffect(() => {
     setIsMounted(true);
-
     // Set initial position to bottom-right corner
-    const initialX = window.innerWidth - 300; // Adjust according to widget width
-    const initialY = window.innerHeight - 400; // Adjust according to widget height
+    const initialX = 20; // Distance from the right
+    const initialY = 20; // Distance from the bottom
     setPosition({ x: initialX, y: initialY });
   }, []);
 
@@ -52,7 +52,7 @@ const ChatWidget = () => {
 
   useEffect(() => {
     if (!listening && transcript) {
-      setInputMessage(transcript); 
+      setInputMessage(transcript);
       handleSendMessage();
     }
   }, [transcript, listening]);
@@ -74,22 +74,34 @@ const ChatWidget = () => {
   }, [showDropdown]);
 
   const handleMouseDown = (e) => {
-    dragStarted.current = false; 
+    dragStarted.current = false;
     isDragging.current = true;
+    const clientX = e.clientX || e.touches[0].clientX;
+    const clientY = e.clientY || e.touches[0].clientY;
+
     offset.current = {
-      x: e.clientX - position.x,
-      y: e.clientY - position.y,
+      x: clientX - widgetRef.current.getBoundingClientRect().left,
+      y: clientY - widgetRef.current.getBoundingClientRect().top,
     };
     document.addEventListener('mousemove', handleMouseMove);
     document.addEventListener('mouseup', handleMouseUp);
+    document.addEventListener('touchmove', handleMouseMove);
+    document.addEventListener('touchend', handleMouseUp);
   };
 
   const handleMouseMove = (e) => {
     if (isDragging.current) {
+      const clientX = e.clientX || e.touches[0].clientX;
+      const clientY = e.clientY || e.touches[0].clientY;
+      
+      const newX = window.innerWidth - (clientX - offset.current.x + widgetRef.current.offsetWidth);
+      const newY = window.innerHeight - (clientY - offset.current.y + widgetRef.current.offsetHeight);
+
       setPosition({
-        x: e.clientX - offset.current.x,
-        y: e.clientY - offset.current.y,
+        x: Math.max(0, Math.min(newX, window.innerWidth - widgetRef.current.offsetWidth)),
+        y: Math.max(0, Math.min(newY, window.innerHeight - widgetRef.current.offsetHeight)),
       });
+
       dragStarted.current = true;
     }
   };
@@ -98,6 +110,8 @@ const ChatWidget = () => {
     isDragging.current = false;
     document.removeEventListener('mousemove', handleMouseMove);
     document.removeEventListener('mouseup', handleMouseUp);
+    document.removeEventListener('touchmove', handleMouseMove);
+    document.removeEventListener('touchend', handleMouseUp);
   };
 
   const toggleChat = () => {
@@ -109,7 +123,7 @@ const ChatWidget = () => {
   const addResponseMessage = (message, sender = 'bot') => {
     const newMessage = { text: message, sender };
     setMessages((prevMessages) => [...prevMessages, newMessage]);
-    setHistory((prevHistory) => [...prevHistory, newMessage]); 
+    setHistory((prevHistory) => [...prevHistory, newMessage]);
   };
 
   const addTypingMessage = () => {
@@ -126,7 +140,7 @@ const ChatWidget = () => {
       addTypingMessage();
 
       const response = await axios({
-        url: `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=API_KEY`,
+        url: `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${process.env.NEXT_PUBLIC_GEMINI_KEY}`,
         method: 'POST',
         data: {
           contents: [
@@ -174,7 +188,7 @@ const ChatWidget = () => {
   };
 
   const handleViewHistory = () => {
-    setMessages(history); 
+    setMessages(history);
   };
 
   const handleClearHistory = () => {
@@ -191,8 +205,9 @@ const ChatWidget = () => {
     <div
       className="fixed z-50"
       ref={widgetRef}
-      style={{ top: `${position.y}px`, left: `${position.x}px` }} 
-      onMouseDown={handleMouseDown} 
+      style={{ bottom: `${position.y}px`, right: `${position.x}px` }}
+      onMouseDown={handleMouseDown}
+      onTouchStart={handleMouseDown}
     >
       {!isOpen ? (
         <button
@@ -219,54 +234,54 @@ const ChatWidget = () => {
                 </div>
               )}
             </div>
-            <button onClick={toggleChat}>
+            <button
+              onClick={toggleChat}
+              className="text-white bg-transparent border-none focus:outline-none"
+            >
               <XMarkIcon className="h-5 w-5" />
             </button>
           </div>
 
-          {/* Chat Body */}
-          <div className="h-64 p-3 overflow-y-auto" ref={chatBodyRef}>
-            {messages.length > 0 ? (
-              messages.map((message, index) => (
+          <div
+            className="p-4 space-y-4 h-72 overflow-y-auto scrollbar-hide"
+            ref={chatBodyRef}
+          >
+            {messages.map((message, index) => (
+              <div key={index} className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
                 <div
-                  key={index}
-                  className={`mb-3 p-2 max-w-xs rounded-md ${
+                  className={`${
                     message.sender === 'user'
-                      ? 'bg-blue-100 self-end'
-                      : 'bg-gray-100 self-start'
-                  }`}
+                      ? 'bg-blue-500 text-white'
+                      : 'bg-gray-200 text-gray-800'
+                  } p-2 rounded-lg shadow-md`}
                 >
                   <Markdown>{message.text}</Markdown>
                 </div>
-              ))
-            ) : (
-              <div className="text-gray-400 text-center mt-10">
-                <p>How are you feeling today?</p>
               </div>
-            )}
+            ))}
+            
           </div>
 
-          {/* Chat Input */}
-          <div className="p-3 bg-gray-50 flex space-x-3 items-center rounded-b-lg border-t border-gray-300">
+          <div className="p-4 flex items-center">
             <input
               type="text"
-              className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400"
               value={inputMessage}
               onChange={(e) => setInputMessage(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+              onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
+              className="border rounded-lg p-2 flex-grow mr-2"
               placeholder="Type a message..."
             />
             <button
-              onClick={() => SpeechRecognition.startListening()}
-              className="bg-gray-300 hover:bg-gray-400 rounded-full p-2"
+              onClick={handleSendMessage}
+              className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-full p-3 shadow-lg"
             >
-              <MicrophoneIcon className={`h-5 w-5 text-black ${listening ? 'text-red-500' : ''}`} />
+              <PaperAirplaneIcon className="h-5 w-5 transform rotate-45" />
             </button>
             <button
-              onClick={handleSendMessage}
-              className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white p-2 rounded-full hover:bg-gradient-to-r hover:from-indigo-400 hover:to-blue-500 transition ease-in-out duration-300"
+              onClick={SpeechRecognition.startListening}
+              className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-full p-3 shadow-lg ml-2"
             >
-              <PaperAirplaneIcon className="h-5 w-5" />
+              <MicrophoneIcon className="h-5 w-5" />
             </button>
           </div>
         </div>

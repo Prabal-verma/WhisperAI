@@ -1,6 +1,6 @@
 "use client";
 import 'regenerator-runtime/runtime';
-import { useState, useEffect } from 'react';
+import { useState, useEffect,useRef } from 'react';
 import axios from 'axios';
 import Markdown from 'react-markdown';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
@@ -13,6 +13,7 @@ export default function ChatPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [chatHistory, setChatHistory] = useState([]);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Toggle for mobile sidebar
+  
 
   // Speech recognition setup
   const { transcript, listening, resetTranscript } = useSpeechRecognition();
@@ -22,6 +23,7 @@ export default function ChatPage() {
     const messageToSend = inputValue.trim() !== '' ? inputValue : transcript;
     if (messageToSend === '') return;
 
+
     const newMessage = { text: messageToSend, sender: 'user', time: new Date().toLocaleString() };
     setMessages((prevMessages) => [...prevMessages, newMessage]);
     setInputValue(''); 
@@ -30,7 +32,7 @@ export default function ChatPage() {
 
     try {
       const response = await axios({
-        url: `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=YOUR_API_KEY`,
+        url: `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${process.env.NEXT_PUBLIC_GEMINI_KEY}`,
         method: 'POST',
         data: {
           contents: [
@@ -112,7 +114,7 @@ export default function ChatPage() {
 function Sidebar({ chatHistory, isSidebarOpen, setIsSidebarOpen }) {
   return (
     <>
-      <div className={`fixed h-screen w-[400px] bg-gradient-to-r from-blue-400 to-purple-400 text-white top-0 left-0 transform  pt-[80px] ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out md:relative md:translate-x-0 z-40`}>
+      <div className={`fixed h-screen w-[400px] bg-black  text-white top-0 left-0 transform  pt-[80px] ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out md:relative md:translate-x-0 z-40`}>
         <div className="flex flex-col h-full py-6 px-4 mb-4">
         <h2 className="text-3xl font-bold text-center">Chat History</h2>
         <button onClick={() => window.location.href = '/dashboard'} className="flex items-center justify-center mt-2 text-white ">
@@ -141,10 +143,23 @@ function Sidebar({ chatHistory, isSidebarOpen, setIsSidebarOpen }) {
 
 function ChatWindow({ messages, isLoading }) {
   const { data: session } = useSession();
+  const chatWindowRef = useRef(null);
+
+  // Scroll to the bottom whenever messages change
+  useEffect(() => {
+    if (chatWindowRef.current) {
+      chatWindowRef.current.scrollTop = chatWindowRef.current.scrollHeight;
+    }
+  }, [messages]);
+
   return (
-    <div className="flex-1 p-6 bg-gradient-to-r from-blue-400 to-purple-400 flex flex-col space-y-4 overflow-y-auto  pt-[80px] ${isSidebarOpen ? 'blur-sm ' : ''}">
+    <div 
+      className="flex-1 p-6 bg-black flex flex-col space-y-4 overflow-y-auto pt-[80px]"
+      ref={chatWindowRef}
+    >
       {messages.length === 0 ? (
-        <div className="flex items-center justify-center h-full font-sans lg:text-[44px] text-transparent bg-clip-text bg-gradient-to-r from-white to bg-gray-300  font-medium text-[35px] flex-col lg:flex-row "><span className='text-gray-300 p-2 lg:text-[44px] font-medium text-[45px]'>Hii ,{session?.user?.name } </span>
+        <div className="flex items-center justify-center h-full font-sans lg:text-[44px] text-transparent bg-clip-text bg-gradient-to-r from-white to bg-gray-300  font-medium text-[35px] flex-col lg:flex-row ">
+          <span className="text-gray-300 p-2 lg:text-[44px] font-medium text-[45px] bg-gradient-to-r from-blue-600 via-pink-500 to-purple-400 inline-block text-transparent bg-clip-text">Hii ,{session?.user?.name}</span>
           How are you feeling today?
         </div>
       ) : (
@@ -159,10 +174,9 @@ function ChatWindow({ messages, isLoading }) {
     </div>
   );
 }
-
 function ChatInput({ inputValue, setInputValue, handleSendMessage, handleKeyPress, transcript, listening, resetTranscript }) {
   return (
-    <div className="p-4  flex items-center space-x-4 bg-gradient-to-r from-blue-400 to-purple-400  ">
+    <div className="p-4  flex items-center space-x-4 bg-black  ">
       <input
         type="text"
         value={inputValue || transcript} 
