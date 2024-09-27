@@ -28,7 +28,7 @@ const AccountabilityPartner = () => {
         <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-8">
           <h1 className="text-3xl font-bold text-gray-800 mb-6">Accountability Partner</h1>
           <p className="text-gray-600 mb-4">
-            Stay on track with your mental health habits by inviting an accountability partner. You can view each other&quot;s progress and stay motivated together.
+            Stay on track with your mental health habits by inviting an accountability partner. You can view each other&apos;s progress and stay motivated together.
           </p>
 
           {/* Add Accountability Partner Form */}
