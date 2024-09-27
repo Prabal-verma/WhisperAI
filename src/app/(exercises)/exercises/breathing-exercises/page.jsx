@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
+import Sidebar from '@/components/ui/Sidebar';
 
 const Breathing478 = () => {
   const [isRunning, setIsRunning] = useState(false);
@@ -45,6 +46,8 @@ const Breathing478 = () => {
 
   return (
     <>
+    <div>
+    <Sidebar/>
       <Head>
         <title>4-7-8 Breathing - Mental Health Assistant</title>
       </Head>
@@ -86,6 +89,7 @@ const Breathing478 = () => {
             </button>
           </Link>
         </div>
+      </div>
       </div>
     </>
   );

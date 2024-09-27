@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { FaBars, FaHome, FaUser, FaChartBar, FaSignOutAlt, FaCog, FaSmile, FaBullseye, FaComments } from 'react-icons/fa';
-import { LogoutButton } from '../auth/logout-button';
+import { FaBars, FaHome, FaUser, FaSmile, FaBullseye, FaComments, FaSignOutAlt, FaCog, FaMedal,FaRunning } from 'react-icons/fa';
+import { logout } from "@/actions/logout";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,13 +31,12 @@ const Sidebar = () => {
             <ul className="space-y-4">
               {[
                 { name: "Home", icon: <FaHome />, link: "/dashboard" },
-                { name: "Profile", icon: <FaUser />, link: "/profile" },
+                { name: "Profile", icon: <FaUser />, link: "/Profile" },
                 { name: "Start Chat", icon: <FaComments />, link: "/Chat" },
-                { name: "Analytics", icon: <FaChartBar />, link: "/analytics" },
-                { name: "Mood Tracking", icon: <FaSmile />, link: "/mood-tracking" },
-                { name: "Goals", icon: <FaBullseye />, link: "/goals" },
-                { name: "Settings", icon: <FaCog />, link: "/settings" },
-                
+                { name: "Activity", icon: <FaRunning />, link: "/exercises" },
+                { name: "Mood Tracking", icon: <FaSmile />, link: "/mood-tracker" },
+                { name: "Goals", icon: <FaBullseye />, link: "/Goals" },
+                { name: "Settings", icon: <FaCog />, link: "/Settings" },
               ].map((item, index) => (
                 <li key={index} className="hover:bg-gray-100 hover:text-gray-600 rounded-lg transition-colors duration-200">
                   <a href={item.link} className="flex items-center space-x-2 py-3 px-4">
@@ -49,12 +48,14 @@ const Sidebar = () => {
             </ul>
           </div>
           <div>
-            <div href="/logout" className="flex items-center space-x-2 py-3 px-4 hover:bg-red-200 hover:text-red-600 rounded-lg transition-colors duration-200">
+            <logout onClick={()=>{logout()}}>
+            <div className="flex items-center space-x-2 py-3 px-4 hover:bg-red-200 hover:text-red-600 rounded-lg transition-colors duration-200 cursor-pointer">
               <FaSignOutAlt className="transition-transform transform hover:rotate-12" />
-              <span className="font-bold">
-                <LogoutButton/>
+              <span className="font-normal">
+                 Logout
               </span>
             </div>
+            </logout>
           </div>
         </div>
       </div>

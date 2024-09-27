@@ -14,7 +14,6 @@ export const LogoutButton = ({ children }: LogoutButtonProps) => {
   return (
     <span onClick={onClick} className="cursor-pointer font-normal">
       {children}
-      LogOut
     </span>
   );
 };

@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
+import Sidebar from '@/components/ui/Sidebar';
 
 const DeepBreathing = () => {
   const [count, setCount] = useState(4);
@@ -40,6 +41,8 @@ const DeepBreathing = () => {
 
   return (
     <>
+    <div>
+    < Sidebar/>
       <Head>
         <title>Deep Breathing - Mental Health Assistant</title>
       </Head>
@@ -81,6 +84,7 @@ const DeepBreathing = () => {
             </button>
           </Link>
         </div>
+      </div>
       </div>
     </>
   );

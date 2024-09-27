@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
+import Sidebar from '@/components/ui/Sidebar';
 
 const ProgressiveMuscleRelaxation = () => {
   const [isRunning, setIsRunning] = useState(false);
@@ -38,6 +39,8 @@ const ProgressiveMuscleRelaxation = () => {
 
   return (
     <>
+    <div>
+    <Sidebar/>
       <Head>
         <title>Progressive Muscle Relaxation - Mental Health Assistant</title>
       </Head>
@@ -78,6 +81,7 @@ const ProgressiveMuscleRelaxation = () => {
             </button>
           </Link>
         </div>
+      </div>
       </div>
     </>
   );

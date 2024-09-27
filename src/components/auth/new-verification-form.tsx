@@ -39,6 +39,8 @@ const NewVerificationForm = () => {
   }, [onSubmit]);
 
   return (
+    <section className="bg-white relative ">
+    <div className=" mt-[14vh] h-screen bg-white w-full absolute right-[200px] ">
     <CardWrapper
       headerLabel="Confirming your verification"
       backButtonLabel="Back to login"
@@ -50,6 +52,8 @@ const NewVerificationForm = () => {
         {!success && <FormError message={error} />}
       </div>
     </CardWrapper>
+    </div>
+    </section>
   );
 };
 

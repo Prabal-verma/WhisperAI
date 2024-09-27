@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
+import Sidebar from '@/components/ui/Sidebar';
 
 const GuidedMeditation = () => {
   const [isRunning, setIsRunning] = useState(false);
@@ -43,6 +44,8 @@ const GuidedMeditation = () => {
 
   return (
     <>
+    <div>
+    <Sidebar/>
       <Head>
         <title>Guided Meditation - Mental Health Assistant</title>
       </Head>
@@ -83,6 +86,7 @@ const GuidedMeditation = () => {
             </button>
           </Link>
         </div>
+      </div>
       </div>
     </>
   );

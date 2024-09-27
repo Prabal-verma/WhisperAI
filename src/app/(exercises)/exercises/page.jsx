@@ -1,4 +1,6 @@
+"use client";
 // pages/exercises.js
+import Sidebar from '@/components/ui/Sidebar';
 import Head from 'next/head';
 import Link from 'next/link';
 
@@ -36,27 +38,31 @@ const exercises = [
 const Exercises = () => {
   return (
     <>
-      <Head>
-        <title>Relaxation Exercises - Mental Health Assistant</title>
-      </Head>
+      <div>
+        <Sidebar />
 
-      {/* Adjusted padding to account for the fixed header */}
-      <div className="bg-gray-100 min-h-screen pt-24 px-4">
-        <div className="max-w-7xl mx-auto">
-          <h1 className="text-4xl font-bold text-gray-900 mb-6">Relaxation & Breathing Exercises</h1>
-          <p className="text-lg text-gray-600 mb-8">Choose from a variety of exercises to help you relax and feel calm.</p>
+        <Head>
+          <title>Relaxation Exercises - Mental Health Assistant</title>
+        </Head>
 
-          {/* Exercise Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {exercises.map((exercise) => (
-              <div key={exercise.id} className={`${exercise.color} text-white rounded-lg shadow-lg p-6`}>
-                <h2 className="text-xl font-bold mb-4">{exercise.name}</h2>
-                <p className="text-sm mb-6">{exercise.description}</p>
-                <Link href={exercise.link} className="bg-white text-black py-2 px-4 rounded-md hover:bg-gray-200 font-semibold">
-                  Start {exercise.name}
-                </Link>
-              </div>
-            ))}
+        {/* Adjusted padding to account for the fixed header */}
+        <div className="bg-gray-100 min-h-screen pt-24 px-4 md:pl-[290px] lg:pl-[290px]  sm:pl-0">
+          <div className="max-w-7xl mx-auto">
+            <h1 className="text-4xl font-bold text-gray-900 mb-6">Relaxation & Breathing Exercises</h1>
+            <p className="text-lg text-gray-600 mb-8">Choose from a variety of exercises to help you relax and feel calm.</p>
+
+            {/* Exercise Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {exercises.map((exercise) => (
+                <div key={exercise.id} className={`${exercise.color} text-white rounded-lg shadow-lg p-6 transition-transform duration-200 transform hover:scale-105`}>
+                  <h2 className="text-xl font-bold mb-4">{exercise.name}</h2>
+                  <p className="text-sm mb-6">{exercise.description}</p>
+                  <Link href={exercise.link} className="bg-white text-black py-2 px-4 rounded-md hover:bg-gray-200 font-semibold">
+                    Start {exercise.name}
+                  </Link>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

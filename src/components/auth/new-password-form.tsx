@@ -53,6 +53,8 @@ const NewPasswordForm = () => {
   };
 
   return (
+    <section className="bg-white relative ">
+    <div className=" mt-[14vh] h-screen bg-white w-full absolute right-[200px] ">
     <CardWrapper
       headerLabel="Enter a new password"
       backButtonLabel="Back to login"
@@ -89,6 +91,8 @@ const NewPasswordForm = () => {
         </form>
       </Form>
     </CardWrapper>
+    </div>
+    </section>
   );
 };
 

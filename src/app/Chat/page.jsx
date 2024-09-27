@@ -29,7 +29,7 @@ export default function ChatPage() {
     try {
       // Fetch response from the Gemini API
       const response = await axios({
-        url: `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=YOUR_API_KEY`, // Replace with your actual API key
+        url: `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyDpD_Nbn101S4lRcggObsGv7zmqFjCvAwg`, // Replace with your actual API key
         method: 'POST',
         data: {
           contents: [

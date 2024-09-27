@@ -1,6 +1,7 @@
 "use client";
-import { FaUser } from "react-icons/fa";
+import { FaUser, FaCog } from "react-icons/fa";
 import { ExitIcon } from "@radix-ui/react-icons";
+import Link from "next/link"; // Import Link from Next.js
 
 import { useCurrentUser } from "@/hooks/use-current-user";
 
@@ -17,25 +18,39 @@ export const UserButton = () => {
   const user = useCurrentUser();
 
   return (
-    <div className="z-100 bg-white">
-    <DropdownMenu>
-      <DropdownMenuTrigger>
-        <Avatar>
-          <AvatarImage src={user?.image || undefined} />
-          <AvatarFallback className="bg-gray-700 text-white">
-            <FaUser />
-          </AvatarFallback>
-        </Avatar>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-40" align="end">
-        <LogoutButton>
-          <DropdownMenuItem>
-            <ExitIcon className="h-4 w-4 mr-2 bg-white" />
-            Logout
-          </DropdownMenuItem>
-        </LogoutButton>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <div className="relative z-50 bg-white">
+      <DropdownMenu>
+        <DropdownMenuTrigger>
+          <Avatar>
+            <AvatarImage src={user?.image || undefined} />
+            <AvatarFallback className="bg-gray-700 text-white">
+              <FaUser />
+            </AvatarFallback>
+          </Avatar>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent className="w-48 bg-white rounded-md shadow-md border border-gray-200 overflow-visible" align="end">
+          <div className="p-2">
+            <Link href="/Profile" passHref>
+              <DropdownMenuItem className="flex items-center p-2 hover:bg-gray-100 rounded-md transition-colors">
+                <FaUser className="h-4 w-4 mr-2 text-gray-700" />
+                Profile
+              </DropdownMenuItem>
+            </Link>
+            <Link href="/Settings" passHref>
+              <DropdownMenuItem className="flex items-center p-2 hover:bg-gray-100 rounded-md transition-colors">
+                <FaCog className="h-4 w-4 mr-2 text-gray-700" />
+                Settings
+              </DropdownMenuItem>
+            </Link>
+            <LogoutButton>
+              <DropdownMenuItem className="flex items-center p-2 hover:bg-gray-100 rounded-md transition-colors">
+                <ExitIcon className="h-4 w-4 mr-2 text-gray-700" />
+                Logout
+              </DropdownMenuItem>
+            </LogoutButton>
+          </div>
+        </DropdownMenuContent>
+      </DropdownMenu>
     </div>
   );
 };
