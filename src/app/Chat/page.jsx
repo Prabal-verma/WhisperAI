@@ -3,14 +3,16 @@ import 'regenerator-runtime/runtime';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Markdown from 'react-markdown';
-import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'; // Import SpeechRecognition
-import { FaMicrophone } from 'react-icons/fa';
+import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
+import { FaMicrophone, FaBars, FaTimes, FaArrowLeft, FaPaperPlane } from 'react-icons/fa';
+import { useSession } from 'next-auth/react';
 
 export default function ChatPage() {
   const [inputValue, setInputValue] = useState('');
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [chatHistory, setChatHistory] = useState([]);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Toggle for mobile sidebar
 
   // Speech recognition setup
   const { transcript, listening, resetTranscript } = useSpeechRecognition();
@@ -22,14 +24,13 @@ export default function ChatPage() {
 
     const newMessage = { text: messageToSend, sender: 'user', time: new Date().toLocaleString() };
     setMessages((prevMessages) => [...prevMessages, newMessage]);
-    setInputValue(''); // Reset input value
-    resetTranscript(); // Reset transcript if used
+    setInputValue(''); 
+    resetTranscript(); 
     setIsLoading(true);
 
     try {
-      // Fetch response from the Gemini API
       const response = await axios({
-        url: `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyDpD_Nbn101S4lRcggObsGv7zmqFjCvAwg`, // Replace with your actual API key
+        url: `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=YOUR_API_KEY`,
         method: 'POST',
         data: {
           contents: [
@@ -40,7 +41,6 @@ export default function ChatPage() {
         },
       });
 
-      // Extract bot response
       const botResponse = { 
         text: response.data.candidates[0].content.parts[0].text, 
         sender: 'bot', 
@@ -57,7 +57,7 @@ export default function ChatPage() {
     }
   };
 
-  // Handle "Enter" key press to send a message
+  // Handle "Enter" key press
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
       handleSendMessage();
@@ -79,9 +79,17 @@ export default function ChatPage() {
   }, [messages]);
 
   return (
-    <div className="h-screen flex bg-gray-100">
+    <div className="h-screen flex flex-col md:flex-row bg-gray-100">
+      {/* Sidebar toggle button for mobile */}
+      <button 
+        onClick={() => setIsSidebarOpen(!isSidebarOpen)} 
+        className="md:hidden bg-blue-600 text-white p-3 fixed top-4 left-4 z-50 rounded-full shadow-lg focus:outline-none"
+      >
+        {isSidebarOpen ? <FaTimes /> : <FaBars />}
+      </button>
+
       {/* Sidebar for chat history */}
-      <Sidebar chatHistory={chatHistory} />
+      <Sidebar chatHistory={chatHistory} isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
 
       {/* Main chat area */}
       <div className="flex-1 flex flex-col">
@@ -91,47 +99,62 @@ export default function ChatPage() {
           setInputValue={setInputValue} 
           handleSendMessage={handleSendMessage} 
           handleKeyPress={handleKeyPress} 
-          transcript={transcript} // Pass the transcript for voice input
-          listening={listening} // Check if the user is currently speaking
-          resetTranscript={resetTranscript} // Function to reset the transcript
+          transcript={transcript} 
+          listening={listening} 
+          resetTranscript={resetTranscript} 
         />
+       
       </div>
     </div>
   );
 }
 
-function Sidebar({ chatHistory }) {
+function Sidebar({ chatHistory, isSidebarOpen, setIsSidebarOpen }) {
   return (
-    <div className="w-1/4 bg-gray-100 text-gray-700 p-4 shadow-lg flex flex-col mt-[10vh]">
-      <h2 className="text-xl font-semibold mb-4">Chat History</h2>
-      <button className="bg-blue-600 text-white py-2 px-4 mb-4 rounded-lg hover:bg-blue-500 transition duration-200">
-        New Chat
-      </button>
-      <div className="space-y-2 overflow-y-scroll h-[60vh]">
-        {chatHistory.length > 0 ? (
-          chatHistory.map((chat, index) => (
-            <div key={index} className="p-3 bg-gray-200 rounded-lg hover:bg-gray-300 transition duration-200">
-              <p className="text-sm"><Markdown>{chat.text}</Markdown></p>
-              <p className="text-xs text-gray-400">{chat.time}</p>
-            </div>
-          ))
-        ) : (
-          <p className="text-sm text-gray-500">No chat history available</p>
-        )}
+    <>
+      <div className={`fixed h-screen w-[400px] bg-gradient-to-r from-blue-400 to-purple-400 text-white top-0 left-0 transform  pt-[80px] ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out md:relative md:translate-x-0 z-40`}>
+        <div className="flex flex-col h-full py-6 px-4 mb-4">
+        <h2 className="text-3xl font-bold text-center">Chat History</h2>
+        <button onClick={() => window.location.href = '/dashboard'} className="flex items-center justify-center mt-2 text-white ">
+          <FaArrowLeft className="mr-2" /> Back to Dashboard
+        </button>
+          
+          <div className="space-y-2 overflow-y-auto flex-1 mt-4">
+            {chatHistory.length > 0 ? (
+              chatHistory.map((chat, index) => (
+                <div key={index} className="p-3 bg-white bg-opacity-50 text-white rounded-lg hover:bg-white hover:opacity-80 transition duration-200">
+                  <p className="text-sm font-medium text-gray-900"><Markdown>{chat.text}</Markdown></p>
+                  <p className="text-xs font-light text-gray-700">{chat.time}</p>
+                </div>
+              ))
+            ) : (
+              <p className="text-sm text-white opacity-80">No chat history available</p>
+            )}
+          </div>
+        </div>
       </div>
-    </div>
+
+      {isSidebarOpen && <div className="fixed inset-0 bg-black opacity-50 z-30" onClick={() => setIsSidebarOpen(false)}></div>}
+    </>
   );
 }
 
 function ChatWindow({ messages, isLoading }) {
+  const { data: session } = useSession();
   return (
-    <div className="flex-1 p-6 bg-white flex flex-col space-y-4 overflow-y-auto mt-[10vh]">
-      {messages.map((msg, index) => (
-        <div key={index} className={`p-4 rounded-lg shadow-md max-w-lg ${msg.sender === 'user' ? 'bg-blue-500 text-white self-end' : 'bg-gray-100 text-black self-start'}`}>
-          <p><Markdown>{msg.text}</Markdown></p>
-          <p className="text-xs font-sans mt-1">{msg.time}</p>
+    <div className="flex-1 p-6 bg-gradient-to-r from-blue-400 to-purple-400 flex flex-col space-y-4 overflow-y-auto  pt-[80px] ${isSidebarOpen ? 'blur-sm ' : ''}">
+      {messages.length === 0 ? (
+        <div className="flex items-center justify-center h-full font-sans lg:text-[44px] text-transparent bg-clip-text bg-gradient-to-r from-white to bg-gray-300  font-medium text-[35px] flex-col lg:flex-row "><span className='text-gray-300 p-2 lg:text-[44px] font-medium text-[45px]'>Hii ,{session?.user?.name } </span>
+          How are you feeling today?
         </div>
-      ))}
+      ) : (
+        messages.map((msg, index) => (
+          <div key={index} className={`p-4 rounded-lg shadow-md max-w-lg ${msg.sender === 'user' ? 'bg-blue-500 opacity-85 text-white self-end' : 'bg-gray-100 opacity-75 text-black self-start'}`}>
+            <p><Markdown>{msg.text}</Markdown></p>
+            <p className="text-xs mt-1">{msg.time}</p>
+          </div>
+        ))
+      )}
       {isLoading && <ThreeDotsLoader />}
     </div>
   );
@@ -139,26 +162,26 @@ function ChatWindow({ messages, isLoading }) {
 
 function ChatInput({ inputValue, setInputValue, handleSendMessage, handleKeyPress, transcript, listening, resetTranscript }) {
   return (
-    <div className="p-4 bg-gray-50 border-t border-gray-200 flex items-center space-x-4">
-     
+    <div className="p-4  flex items-center space-x-4 bg-gradient-to-r from-blue-400 to-purple-400  ">
       <input
         type="text"
-        value={inputValue || transcript} // Show transcript if available
+        value={inputValue || transcript} 
         onChange={(e) => setInputValue(e.target.value)}
-        onKeyPress={handleKeyPress}  
-        className="flex-1 px-4 py-3 rounded-full border border-gray-300 shadow-md focus:ring-2 focus:ring-blue-400 focus:outline-none transition duration-150"
+        onKeyPress={handleKeyPress}
+        className="flex-1 px-4 py-3 rounded-full border opacity-60 focus:opacity-85 border-gray-300 shadow-md focus:ring-2 focus:ring-blue-400 focus:outline-none"
         placeholder="Type or say a message..."
       />
-       <button
+      <button
         onClick={listening ? SpeechRecognition.stopListening : SpeechRecognition.startListening}
-        className={`p-2 rounded-full ${listening ? 'bg-red-500' : 'bg-green-500'} hover:bg-green-700 text-white transition duration-200`}
+        className={`p-2 rounded-full ${listening ? 'bg-red-500' : 'bg-green-500'} hover:bg-green-700 text-white`}
       >
-         <FaMicrophone className="w-5 h-5" /> {/* Microphone Icon */}
+        <FaMicrophone className="w-5 h-5" />
       </button>
       <button
         onClick={handleSendMessage}
-        className="bg-blue-600 text-white px-6 py-3 rounded-full shadow-lg hover:bg-blue-700 transition duration-200">
-        Send
+        className="bg-blue-600 text-white px-4 py-2 rounded-full shadow-lg hover:bg-blue-700 transition flex items-center"
+      >
+        <FaPaperPlane className="mr-2" /> Send
       </button>
     </div>
   );
@@ -166,10 +189,10 @@ function ChatInput({ inputValue, setInputValue, handleSendMessage, handleKeyPres
 
 function ThreeDotsLoader() {
   return (
-    <div className="flex justify-start items-center">
-      <div className="w-2.5 h-2.5 bg-gray-500 rounded-full animate-bounce"></div>
-      <div className="w-2.5 h-2.5 bg-gray-500 rounded-full animate-bounce mx-1"></div>
-      <div className="w-2.5 h-2.5 bg-gray-500 rounded-full animate-bounce"></div>
+    <div className="flex justify-start items-center gap-[2px] ">
+      <div className="w-2.5 h-2.5 bg-white rounded-full animate-bounce"></div>
+      <div className="w-2.5 h-2.5 bg-white rounded-full animate-bounce200"></div>
+      <div className="w-2.5 h-2.5 bg-white rounded-full animate-bounce300"></div>
     </div>
   );
 }
