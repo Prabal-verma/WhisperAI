@@ -11,25 +11,25 @@ const words = `Your Personal Health Asisitant  Providing support, guidance, and 
 `;
 
 
-const projects = [
+ const projects = [
   {
-    title: "Real-Time Collaboration",
+    title: "24/7 Availability",
     description:
-      " Work together with your team in real time, seeing changes as they happen. Collaborate effortlessly with live updates and instant communication.",
+      "Our assistant is available around the clock, ensuring that support is always accessible.",
     link: "https://stripe.com",
   },
   {
-    title: "Advanced Formulas & Functions",
+    title: "Personalized Support",
     description:
-      " Utilize a wide range of advanced formulas and functions to perform complex calculations and data analysis with ease.",
-    link: "https://stripe.com",
+      "Tailored advice and guidance to help you through challenging times, based on your needs and emotions.",
+    link: "https://netflix.com",
   },
   {
-    title: "Customizable Templates",
+    title: "Safe & Confidential",
     description:
-      " Start quickly with customizable templates that fit your needs, or create your own to streamline repetitive tasks and processes.",
-      link: "https://stripe.com",
-  },]
+      " Your conversations are private, encrypted, and secure to guarantee complete confidentiality.",
+    link: "https://google.com",
+  }]
 
 
 
