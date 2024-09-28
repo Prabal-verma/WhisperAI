@@ -28,11 +28,25 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
+
+  const setInitialTheme = `
+  (function() {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  })();
+`;
+
   const session = await auth();
   return (
     <SessionProvider session={session}>
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        {/* Inject the theme script to apply dark mode instantly */}
+       <script dangerouslySetInnerHTML={{ __html: setInitialTheme }} />
         <Header /> {/* Render the Header here */}
         <Toaster />
         {children}

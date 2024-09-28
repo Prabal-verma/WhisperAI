@@ -34,7 +34,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-, "src/auth.js", "src/middleware.js", "src/app/(pages)/dashboard/page.tsx"  ],
+, "src/auth.js", "src/middleware.js", "src/app/(pages)/dashboard/page.jsx", "src/components/ui/hover-border-gradient.jsx", "tailwind.config.js", "src/components/ui/card-hover-effect.jsx"  ],
   "exclude": [
     "node_modules"
   ]

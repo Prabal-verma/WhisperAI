@@ -112,8 +112,8 @@ export default function Dashboard() {
   return (
     <div className="flex flex-col lg:flex-row mt-[70px]">
       <Sidebar />
-      <div className="lg:ml-64 w-full h-screen p-5 bg-gradient-to-r from-gray-100 to-gray-200">
-      <header className="flex flex-col sm:flex-row justify-between items-center mb-8">
+      <div className="lg:ml-64 w-full h-screen p-5 bg-gradient-to-r from-gray-100 to-gray-200 ">
+      <header className="flex flex-col sm:flex-row justify-between items-center mb-8 ">
               <h1 className="text-3xl font-bold text-gray-800 mb-4 sm:mb-0">
                 Welcome, {session?.user?.name}
                

@@ -21,7 +21,7 @@ const Sidebar = () => {
 
       {/* Sidebar */}
       <div 
-        className={`fixed h-screen w-64 bg-blue-600 text-white top-0 left-0 transform ${isOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out md:translate-x-0 z-40`}
+        className={`fixed h-screen w-64 bg-blue-600  dark:bg-black text-white top-0 left-0 transform ${isOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out md:translate-x-0 z-40`}
       >
         <div className="flex flex-col justify-between h-full py-6 px-4">
           <div>
