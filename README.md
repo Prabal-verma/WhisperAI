@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
 
-First, run the development server:
+### Whisper - AI-Powered Mental Health Support for Students
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+**Whisper** is an AI-driven chatbot designed to provide empathetic, confidential, and accessible mental health support for students. It leverages natural language processing (NLP) and machine learning to engage in meaningful conversations, helping students manage stress, anxiety, and emotional challenges.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Project Overview
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+Mental health among students is a growing concern, with many facing academic pressure, social isolation, and personal struggles. Whisper offers round-the-clock emotional support, tailored guidance, and personalized mental health resources through secure, confidential conversations. The platform is designed to reduce stigma around mental health and complement traditional counseling services by offering immediate assistance for everyday concerns.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### Key Features
 
-## Learn More
+- **AI-Driven Conversations**: Engages in supportive dialogue using advanced AI and NLP algorithms.
+- **Confidential and Secure**: Offers a safe, private space for users to express their emotions.
+- **Personalized Resources**: Provides tailored mental health suggestions like mindfulness exercises and relevant articles.
+- **Two-Factor Authentication (2FA)**: Ensures account security.
+- **OAuth Login**: Supports secure login via Google or other providers.
+- **Admin Dashboard**: Allows admin control over user management and mental health resources.
 
-To learn more about Next.js, take a look at the following resources:
+### Impact
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. **Improving Mental Health Support**: Provides easily accessible, non-judgmental support for students.
+2. **Reducing Stigma**: Promotes open conversations about mental health in a safe, anonymous environment.
+3. **Resource Availability**: Offers personalized mental health content and exercises.
+4. **Supporting Institutions**: Eases the load on traditional counseling services by addressing less severe cases.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Steps to Run Locally
 
-## Deploy on Vercel
+#### 1. **Clone the Repository**:
+   ```bash
+   git clone <repository-url>
+   cd whisper
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+#### 2. **Install Dependencies**:
+   ```bash
+   npm install
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+#### 3. **Configure Environment Variables**:
+   Create a `.env` file with:
+   ```bash
+   DATABASE_URL=<your-mongodb-url>
+   NEXTAUTH_URL=http://localhost:3000
+   NEXTAUTH_SECRET=<your-next-auth-secret>
+   GOOGLE_CLIENT_ID=<your-google-client-id>
+   GOOGLE_CLIENT_SECRET=<your-google-client-secret>
+   ```
+
+#### 4. **Prisma Setup**:
+   ```bash
+   npx prisma generate
+   ```
+
+#### 5. **Run the Development Server**:
+   ```bash
+   npm run dev
+   ```
+
+#### 6. **Access the Application**:
+   Visit:
+   ```bash
+   http://localhost:3000
+   ```
+
+#### 7. **Admin Panel**:
+   Navigate to:
+   ```bash
+   http://localhost:3000/admin
+   ```

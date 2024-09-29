@@ -1,4 +1,3 @@
-
 import { signIn } from "../auth"
 import { SignInButton } from "./auth/signin-button"
 import { SignOutButton } from "./auth/signout-button"
