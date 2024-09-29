@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
+import Sidebar from '@/components/ui/Sidebar';
 
 const Rewards = () => {
   const [points, setPoints] = useState(0);
@@ -68,7 +69,7 @@ const Rewards = () => {
       <Head>
         <title>Rewards - Mental Health Assistant</title>
       </Head>
-
+    <Sidebar/>
       <div className="bg-gray-50 min-h-screen pt-16 px-6 flex flex-col items-center">
         <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-8">
           <h1 className="text-3xl font-bold text-gray-800 mb-6">Redeem Your Rewards</h1>
