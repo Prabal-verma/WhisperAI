@@ -21,9 +21,9 @@ const Header = () => {
       <div className="container mx-auto px-6 py-4 flex justify-between items-center">
         {!session?(
         <Link href="/" className="text-3xl font-bold bg-gradient-to-r from-blue-600  to-pink-400 inline-block text-transparent bg-clip-text  lg:ml-0 text-blue-600 tracking-tight transition duration-200  hover:scale-105 transform" style={{ fontFamily: 'Poppins, sans-serif' }}>
-          Whisper
+          Whisper AI
         </Link>):(  <Link href="/" className="text-3xl font-bold ml-[40px] bg-gradient-to-r from-blue-600  to-pink-400 inline-block text-transparent bg-clip-text  lg:ml-0 text-blue-600 tracking-tight transition duration-200 hover:scale-105 transform" style={{ fontFamily: 'Poppins, sans-serif' }}>
-          Whisper
+          Whisper AI
         </Link>)}
         
 

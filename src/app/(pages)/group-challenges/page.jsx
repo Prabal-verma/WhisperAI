@@ -32,7 +32,7 @@ const GroupChallenges = () => {
   const [communityPosts, setCommunityPosts] = useState([
     {
       id: 1,
-      username: "JohnD",
+      username: "Poxy Pixel",
       content: "Just finished my mindfulness session! Feeling much calmer.",
       likes: 10,
       comments: 2,

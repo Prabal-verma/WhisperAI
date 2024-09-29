@@ -72,7 +72,7 @@ const RegisterForm = () => {
                     <Input
                       {...field}
                       disabled={isPending}
-                      placeholder="John Doe"
+                      placeholder="User Name"
                     />
                   </FormControl>
                   <FormMessage />
@@ -91,7 +91,7 @@ const RegisterForm = () => {
                     <Input
                       {...field}
                       disabled={isPending}
-                      placeholder="john.doe@example.com"
+                      placeholder="test@test.com"
                       type="email"
                     />
                   </FormControl>
