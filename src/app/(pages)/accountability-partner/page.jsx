@@ -9,6 +9,7 @@ const AccountabilityPartner = () => {
   const [partnerProgress, setPartnerProgress] = useState(50); // Example partner progress
   const [partnerAdded, setPartnerAdded] = useState(false);
 
+  
   const handleAddPartner = (e) => {
     e.preventDefault();
     if (partnerEmail) {

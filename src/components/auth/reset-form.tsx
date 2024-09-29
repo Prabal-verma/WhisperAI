@@ -72,7 +72,7 @@ const ResetForm = () => {
                     <Input
                       {...field}
                       disabled={isPending}
-                      placeholder="john.doe@example.com"
+                      placeholder="test@test.com"
                       type="email"
                     />
                   </FormControl>

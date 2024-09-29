@@ -128,7 +128,7 @@ const LoginForm = () => {
                             <Input
                               {...field}
                               disabled={isPending}
-                              placeholder="john.doe@example.com"
+                              placeholder="test@test.com"
                               type="email"
                               className="border border-gray-300 rounded-md bg-white text-gray-800 focus:outline-none focus:ring focus:ring-blue-300" // Light theme styles
                             />

@@ -46,7 +46,7 @@ export default function SettingsPage() {
           transition={{ delay: 0.2, duration: 0.6 }}
         >
           <h2 className="text-lg font-semibold text-gray-700">Account Information</h2>
-          <p className="text-gray-500">Name: {session?.user?.name || "John Doe"}</p>
+          <p className="text-gray-500">Name: {session?.user?.name || "User Name"}</p>
           <p className="text-gray-500">Email: {primaryEmail}</p>
           <input
             type="email"
