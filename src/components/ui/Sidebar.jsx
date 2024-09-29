@@ -13,7 +13,7 @@ const Sidebar = () => {
     <>
       {/* Hamburger Button for Mobile */}
       <button 
-        className="md:hidden bg-blue-600 text-white p-3 fixed top-4 left-4 z-50 focus:outline-none rounded-full shadow-lg hover:shadow-xl transition-shadow"
+        className="md:hidden bg-blue-800 dark:bg-gray-800  text-white p-3 fixed top-4 left-4 z-50 focus:outline-none rounded-full shadow-lg hover:shadow-xl transition-shadow"
         onClick={toggleSidebar}
       >
         <FaBars />
@@ -21,7 +21,7 @@ const Sidebar = () => {
 
       {/* Sidebar */}
       <div 
-        className={`fixed h-screen w-64 bg-blue-600  dark:bg-black text-white top-0 left-0 transform ${isOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out md:translate-x-0 z-40`}
+        className={`fixed h-screen w-64 bg-blue-900  dark:bg-black text-white top-0 left-0 transform ${isOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out md:translate-x-0 z-40`}
       >
         <div className="flex flex-col justify-between h-full py-6 px-4">
           <div>
