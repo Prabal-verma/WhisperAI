@@ -7,7 +7,7 @@ import { TextGenerateEffect } from "../components/ui/text-generate-effect";
 import { InfiniteMovingCards } from "../components/ui/infinite-moving-cards"
 import { HoverEffect } from "../components/ui/card-hover-effect.jsx"
  
-const words = `Your Personal Health Asisitant  Providing support, guidance, and understanding whenever you need it.
+const words = `Your Personal Mental Health Assistant. Providing support, guidance, and understanding whenever you need it.
 `;
 
 
@@ -88,7 +88,7 @@ export default function Home() {
                       </p>
 
                                 {!session?(
-                                  <div className="inline-block">
+                                  <div className="inline-block p-7">
                                       <HoverBorderGradient
                                       containerClassName="rounded-full"
                                       as="button"

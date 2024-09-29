@@ -6,6 +6,11 @@ import Markdown from 'react-markdown';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 import { FaMicrophone, FaBars, FaTimes, FaArrowLeft, FaPaperPlane } from 'react-icons/fa';
 import { useSession } from 'next-auth/react';
+import { TextGenerateEffect } from '@/components/ui/text-generate-effect';
+
+const words = `How are you feeling today?
+`;
+
 
 export default function ChatPage() {
   const [inputValue, setInputValue] = useState('');
@@ -114,11 +119,11 @@ export default function ChatPage() {
 function Sidebar({ chatHistory, isSidebarOpen, setIsSidebarOpen }) {
   return (
     <>
-      <div className={`fixed h-screen w-[400px] bg-black  text-white top-0 left-0 transform  pt-[80px] ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out md:relative md:translate-x-0 z-40`}>
+      <div className={`fixed h-screen w-[400px] bg-blue-100 dark:bg-gray-900 text-gray-700 shadow-lg dark:text-white top-0 left-0 transform  pt-[80px] ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out md:relative md:translate-x-0 z-40`}>
         <div className="flex flex-col h-full py-6 px-4 mb-4">
-        <h2 className="text-3xl font-bold text-center">Chat History</h2>
-        <button onClick={() => window.location.href = '/dashboard'} className="flex items-center justify-center mt-2 text-white ">
-          <FaArrowLeft className="mr-2" /> Back to Dashboard
+        <h2 className="text-3xl font-bold text-center ">Chat History</h2>
+        <button onClick={() => window.location.href = '/dashboard'} className="flex items-center justify-center mt-2  text-gray-700 dark:text-gray-300 ">
+          <FaArrowLeft className="mr-2 " /> Back to Dashboard
         </button>
           
           <div className="space-y-2 overflow-y-auto flex-1 mt-4">
@@ -154,13 +159,14 @@ function ChatWindow({ messages, isLoading }) {
 
   return (
     <div 
-      className="flex-1 p-6 bg-black flex flex-col space-y-4 overflow-y-auto pt-[80px]"
+      className="flex-1 p-6 dark:bg-gray-900 bg-blue-50  flex flex-col space-y-4 overflow-y-auto pt-[80px] pb-[80px]"
       ref={chatWindowRef}
     >
       {messages.length === 0 ? (
-        <div className="flex items-center justify-center h-full font-sans lg:text-[44px] text-transparent bg-clip-text bg-gradient-to-r from-white to bg-gray-300  font-medium text-[35px] flex-col lg:flex-row ">
-          <span className="text-gray-300 p-2 lg:text-[44px] font-medium text-[45px] bg-gradient-to-r from-blue-600 via-pink-500 to-purple-400 inline-block text-transparent bg-clip-text">Hii ,{session?.user?.name}</span>
+        <div className="flex items-center justify-center h-full font-sans lg:text-[44px] text-transparent bg-clip-text bg-gradient-to-r from-gray-300 to bg-gray-400 text-black  font-medium text-[35px] flex-col lg:flex-row lg:pl-0 pl-6">
+          <span className="text-gray-300 p-2 lg:text-[44px]  font-medium text-[45px] bg-gradient-to-r from-blue-600 via-pink-500 to-purple-400 inline-block text-transparent bg-clip-text">Hii {session?.user?.name},</span>
           How are you feeling today?
+          {/* <TextGenerateEffect words={words} /> */}
         </div>
       ) : (
         messages.map((msg, index) => (
@@ -176,7 +182,7 @@ function ChatWindow({ messages, isLoading }) {
 }
 function ChatInput({ inputValue, setInputValue, handleSendMessage, handleKeyPress, transcript, listening, resetTranscript }) {
   return (
-    <div className="p-4  flex items-center space-x-4 bg-black  ">
+    <div className="p-4  flex items-center space-x-4 dark:bg-gray-900 bg-blue-50  ">
       <input
         type="text"
         value={inputValue || transcript} 
@@ -204,9 +210,9 @@ function ChatInput({ inputValue, setInputValue, handleSendMessage, handleKeyPres
 function ThreeDotsLoader() {
   return (
     <div className="flex justify-start items-center gap-[2px] ">
-      <div className="w-2.5 h-2.5 bg-white rounded-full animate-bounce"></div>
-      <div className="w-2.5 h-2.5 bg-white rounded-full animate-bounce200"></div>
-      <div className="w-2.5 h-2.5 bg-white rounded-full animate-bounce300"></div>
+      <div className="w-2.5 h-2.5 dark:bg-white bg-gray-300 rounded-full animate-bounce"></div>
+      <div className="w-2.5 h-2.5 dark:bg-white bg-gray-300 rounded-full animate-bounce200"></div>
+      <div className="w-2.5 h-2.5 dark:bg-white bg-gray-300  rounded-full animate-bounce300"></div>
     </div>
   );
 }

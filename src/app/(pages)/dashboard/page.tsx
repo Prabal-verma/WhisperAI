@@ -112,20 +112,20 @@ export default function Dashboard() {
   return (
     <div className="flex flex-col lg:flex-row mt-[70px]">
       <Sidebar />
-      <div className="lg:ml-64 w-full h-screen p-5 bg-gradient-to-r from-gray-100 to-gray-200 ">
+      <div className="lg:ml-64 w-full h-screen p-5 dark:bg-gray-950  bg-gray-100  ">
       <header className="flex flex-col sm:flex-row justify-between items-center mb-8 ">
-              <h1 className="text-3xl font-bold text-gray-800 mb-4 sm:mb-0">
+              <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-200 -4 sm:mb-0">
                 Welcome, {session?.user?.name}
                
               </h1>
-              <span className="text-lg text-gray-600 ml-2 inline-block">Overview</span> {/* Added Overview here */}
+              <span className="text-lg text-gray-600 ml-2 inline-block dark:text-gray-400">Overview</span> {/* Added Overview here */}
               <div className="w-full sm:w-auto">
                 <input
                   type="text"
                   placeholder="Search..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="px-4 py-2 w-full sm:w-auto rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="px-4 py-2 w-full sm:w-auto rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
                 />
               </div>
             </header>
@@ -136,9 +136,9 @@ export default function Dashboard() {
           {filteredCharts.map((chartComponent, index) => (
             <div
               key={index}
-              className="bg-white p-4 rounded-lg shadow-lg transition-all duration-300 hover:shadow-xl transform hover:scale-105"
+              className="bg-white dark:bg-gray-300   p-4 rounded-lg shadow-lg transition-all duration-300 hover:shadow-xl transform hover:scale-105"
             >
-              <h2 className="text-xl font-semibold text-gray-700 mb-4">
+              <h2 className="text-xl font-semibold text-gray-700 dark:text-white-gray-300 mb-4">
                 {chartComponent.name}
               </h2>
               {chartComponent.chart}
