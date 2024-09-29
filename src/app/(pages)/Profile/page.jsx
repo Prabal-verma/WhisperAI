@@ -41,7 +41,7 @@ export default function ProfilePage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.6 }}
           >
-            {session?.user?.name || "John Doe"}
+            {session?.user?.name || "User Name"}
           </motion.h1>
           <motion.p
             className="text-gray-500 mb-4"
@@ -49,7 +49,7 @@ export default function ProfilePage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.6 }}
           >
-            {session?.user?.email || "johndoe@example.com"}
+            {session?.user?.email || "test@test.com"}
           </motion.p>
         </div>
 
