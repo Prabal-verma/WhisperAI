@@ -12,13 +12,11 @@ const engagementData = [
   { name: 'Day 4', interactions: 27 },
   { name: 'Day 5', interactions: 18 },
 ];
-
 const sentimentData = [
   { name: 'Positive', value: 400 },
   { name: 'Neutral', value: 300 },
   { name: 'Negative', value: 300 },
 ];
-
 const accuracyData = [
   { name: 'Emotional Response', accuracy: 85 },
   { name: 'Question Understanding', accuracy: 78 },

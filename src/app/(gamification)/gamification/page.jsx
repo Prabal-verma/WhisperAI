@@ -2,6 +2,8 @@
 // pages/gamification.js
 import { useState, useEffect } from 'react';
 import Head from 'next/head';
+import Sidebar from '@/components/ui/Sidebar';
+import Link from 'next/link';
 
 const Gamification = () => {
   const [points, setPoints] = useState(0);
@@ -133,12 +135,15 @@ const Gamification = () => {
       <Head>
         <title>Gamification - Mental Health Assistant</title>
       </Head>
-
+    <Sidebar/>
       <div className="bg-gray-50 min-h-screen pt-16 px-6 flex flex-col items-center">
         <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-8">
           <h1 className="text-3xl font-bold text-gray-800 mb-6">Gamification of Mental Health</h1>
           <p className="text-gray-600 mb-4">Earn points by completing tasks and games that promote your mental well-being!</p>
+          <div className='flex justify-start items-center flex-row gap-10'>
           <h2 className="text-2xl font-bold text-gray-800 mb-4">Your Points: {points}</h2>
+          <Link href="/rewards" className="text-2xl font-bold text-yellow-500 hover:underline mb-4">Reedeem Rewards</Link>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {tasksAndGames.map((task) => (

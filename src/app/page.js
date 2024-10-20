@@ -6,6 +6,8 @@ import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 import { TextGenerateEffect } from "../components/ui/text-generate-effect";
 import { InfiniteMovingCards } from "../components/ui/infinite-moving-cards"
 import { HoverEffect } from "../components/ui/card-hover-effect.jsx"
+import Chatbot from "../components/Chatbot"
+
  
 const words = `Your Personal Mental Health Assistant. Providing support, guidance, and understanding whenever you need it.
 `;
@@ -43,6 +45,8 @@ export default function Home() {
   return (
     <>
     <div>
+      
+      <Chatbot/>
         {/* Radial gradient for the container to give a faded look */}
         {/* <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div> */}
 
@@ -155,8 +159,8 @@ export default function Home() {
           <p className="text-gray-600 dark:text-gray-400 text-lg max-w-3xl mx-auto">
             We believe that mental health is essential for leading a fulfilling life. Our AI assistant offers personalized support, helps reduce stress, and guides you through your emotional journey. Start today and take a step towards well-being.
           </p>
-          <a href="/about" className="mt-8 inline-block bg-gray-100   border-2 border-black text-black px-6 py-3 rounded-lg font-semibold shadow-md hover:bg-black hover:text-white dark:border-white transition">
-            Learn More
+          <a href="/dashboard" className="mt-8 inline-block bg-gray-100   border-2 border-black text-black px-6 py-3 rounded-lg font-semibold shadow-md hover:bg-black hover:text-white dark:border-white transition">
+            Dashboard
           </a>
         </div>
       </section>

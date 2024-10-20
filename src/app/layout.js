@@ -50,7 +50,7 @@ export default async function RootLayout({ children }) {
         <Header /> {/* Render the Header here */}
         <Toaster />
         {children}
-        <Chatbot />
+        {/* <Chatbot /> */}
       </body>
     </html>
     </SessionProvider>

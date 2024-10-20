@@ -6,7 +6,7 @@ import Markdown from 'react-markdown';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 import { FaMicrophone, FaBars, FaTimes, FaArrowLeft, FaPaperPlane } from 'react-icons/fa';
 import { useSession } from 'next-auth/react';
-import { TextGenerateEffect } from '@/components/ui/text-generate-effect';
+import { TextGenerateEffect } from '@/components/ui/text-generate-effect-chat';
 
 const words = `How are you feeling today?
 `;
@@ -159,18 +159,18 @@ function ChatWindow({ messages, isLoading }) {
 
   return (
     <div 
-      className="flex-1 p-6 dark:bg-gray-900 bg-blue-50  flex flex-col space-y-4 overflow-y-auto pt-[80px] pb-[80px]"
+      className="flex-1 p-6 dark:bg-gray-900 bg-blue-50  flex flex-col space-y-4 overflow-y-auto pt-[80px] pb-[120px]"
       ref={chatWindowRef}
     >
       {messages.length === 0 ? (
-        <div className="flex items-center justify-center h-full font-sans lg:text-[44px] text-transparent bg-clip-text bg-gradient-to-r from-gray-300 to bg-gray-400 text-black  font-medium text-[35px] flex-col lg:flex-row lg:pl-0 pl-6">
+        <div className="flex items-center justify-center h-full font-sans lg:text-[44px] text-transparent bg-clip-text bg-gradient-to-r from-gray-300 to bg-gray-400 text-black  font-medium text-[35px] flex-col lg:flex-row lg:pl-0 pl-6 ">
           <span className="text-gray-300 p-2 lg:text-[44px]  font-medium text-[45px] bg-gradient-to-r from-blue-600 via-pink-500 to-purple-400 inline-block text-transparent bg-clip-text">Hii {session?.user?.name},</span>
-          How are you feeling today?
-          {/* <TextGenerateEffect words={words} /> */}
+          {/* How are you feeling today? */}
+          <TextGenerateEffect words={words} />
         </div>
       ) : (
         messages.map((msg, index) => (
-          <div key={index} className={`p-4 rounded-lg shadow-md max-w-lg ${msg.sender === 'user' ? 'bg-blue-500 opacity-85 text-white self-end' : 'bg-gray-100 opacity-75 text-black self-start'}`}>
+          <div key={index} className={`p-4 rounded-lg shadow-md max-w-lg  ${msg.sender === 'user' ? 'bg-blue-500 opacity-85 text-white self-end' : 'bg-gray-100 opacity-75 text-black self-start'}`}>
             <p><Markdown>{msg.text}</Markdown></p>
             <p className="text-xs mt-1">{msg.time}</p>
           </div>
@@ -182,7 +182,7 @@ function ChatWindow({ messages, isLoading }) {
 }
 function ChatInput({ inputValue, setInputValue, handleSendMessage, handleKeyPress, transcript, listening, resetTranscript }) {
   return (
-    <div className="p-4  flex items-center space-x-4 dark:bg-gray-900 bg-blue-50  ">
+    <div className="p-4  flex items-center space-x-4 dark:bg-gray-900 bg-blue-50 pb-[50px] fixed bottom-0 left-0 lg:left-[400px] right-0 ">
       <input
         type="text"
         value={inputValue || transcript} 
@@ -193,15 +193,12 @@ function ChatInput({ inputValue, setInputValue, handleSendMessage, handleKeyPres
       />
       <button
         onClick={listening ? SpeechRecognition.stopListening : SpeechRecognition.startListening}
-        className={`p-2 rounded-full ${listening ? 'bg-red-500' : 'bg-green-500'} hover:bg-green-700 text-white`}
+        className={`p-2 rounded-full ${listening ? 'bg-red-500' : 'bg-blue-500'} hover:bg-blue-700 text-white`}
       >
         <FaMicrophone className="w-5 h-5" />
       </button>
-      <button
-        onClick={handleSendMessage}
-        className="bg-blue-600 text-white px-4 py-2 rounded-full shadow-lg hover:bg-blue-700 transition flex items-center"
-      >
-        <FaPaperPlane className="mr-2" /> Send
+      <button onClick={handleSendMessage} className="bg-blue-600 text-white rounded-full p-3">
+        <FaPaperPlane />
       </button>
     </div>
   );
