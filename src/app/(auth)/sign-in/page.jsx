@@ -2,13 +2,12 @@
 import { signIn } from "next-auth/react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const router = useRouter();
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     const result = await signIn("credentials", {
