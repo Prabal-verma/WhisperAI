@@ -7,6 +7,7 @@ const SignIn = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const router = useRouter();
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     const result = await signIn("credentials", {
